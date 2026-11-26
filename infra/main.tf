@@ -70,3 +70,10 @@ resource "azurerm_role_assignment" "kv_me" {
   role_definition_name = "Key Vault Secrets Officer"
   principal_id         = data.azurerm_client_config.current.object_id
 }
+
+# Let ME read and write data in the lake (needed to test the script locally)
+resource "azurerm_role_assignment" "lake_me" {
+  scope                = azurerm_storage_account.lake.id
+  role_definition_name = "Storage Blob Data Contributor"
+  principal_id         = data.azurerm_client_config.current.object_id
+}
